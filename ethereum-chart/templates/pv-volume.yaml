@@ -1,0 +1,16 @@
+# gcloud compute disks create --size=150GB --zone=asia-south1-c  gce-nfs-disk
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ .Values.data.volumeName }}
+  labels:
+    app: geth
+spec:
+  storageClassName: faster
+  capacity:
+    storage: {{ .Values.data.volumeSize }}
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: {{ .Values.data.gcePersistentDiskName }}
+    fsType: ext4
